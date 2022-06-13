@@ -10,6 +10,29 @@ on:
     paths-ignore: ['**.md']
   workflow_dispatch:
 jobs:
+  restore-cache:
+    if: github.event.schedule != ''
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        r: ['release']
+        r-repo: ['https://packagemanager.rstudio.com/all/__linux__/focal/latest']
+    steps:
+      - name: Set restore key partials
+        run: |
+          Rscript -e 'cat("OS_VERSION=", sessionInfo()$running, sep = "")' >> $GITHUB_ENV
+          Rscript -e 'cat("R_VERSION=", R.Version()$version.string, sep = "")' >> $GITHUB_ENV
+          echo 'WORKFLOW=${{ github.workflow }}' >> $GITHUB_ENV
+          echo 'TMPDIR=${{ runner.temp }}' >> $GITHUB_ENV
+      - name: Restore GHA Cache
+        uses: ktmud/cached-dependencies@064315d
+        with:
+          parallel: true
+          run: |
+            cache-restore renv
+            cache-restore knitr
   rmarkdown:
     if: github.event.schedule == ''
     runs-on: ${{ matrix.os }}
@@ -34,11 +57,11 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
-      - uses: prncevince/r-actions/setup-renv
+      - uses: prncevince/r-actions/setup-renv@main
         with:
           type: 'restore'
           cache-version: 
-      - uses: prncevince/r-actions/setup-knitr-cache
+      - uses: prncevince/r-actions/setup-knitr-cache@main
         with:
           cache: 'knitr-cache_cache'
           cache-hash: 'knitr-cache.Rmd'
