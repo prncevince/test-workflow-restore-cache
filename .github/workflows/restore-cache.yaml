@@ -57,11 +57,11 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
-      - uses: prncevince/actions/setup-renv
+      - uses: prncevince/r-actions/setup-renv
         with:
           type: 'restore'
           cache-version: 
-      - uses: prncevince/actions/setup-knitr-cache
+      - uses: prncevince/r-actions/setup-knitr-cache
         with:
           cache: 'knitr-cache_cache'
           cache-hash: 'knitr-cache.Rmd'
