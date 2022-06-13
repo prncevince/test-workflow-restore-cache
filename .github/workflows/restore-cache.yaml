@@ -26,6 +26,7 @@ jobs:
           Rscript -e 'cat("R_VERSION=", R.Version()$version.string, sep = "")' >> $GITHUB_ENV
           echo 'WORKFLOW=${{ github.workflow }}' >> $GITHUB_ENV
           echo 'TMPDIR=${{ runner.temp }}' >> $GITHUB_ENV
+      - uses: actions/checkout@v3
       - name: Restore GHA Cache
         uses: ktmud/cached-dependencies@064315d61e424e60d440fa77e8afda19cdd7211a
         with:
