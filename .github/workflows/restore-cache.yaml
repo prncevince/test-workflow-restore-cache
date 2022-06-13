@@ -22,8 +22,8 @@ jobs:
     steps:
       - name: Set restore key partials
         run: |
-          Rscript -e 'cat("OS_VERSION=", sessionInfo()$running, sep = "")' >> $GITHUB_ENV
-          Rscript -e 'cat("R_VERSION=", R.Version()$version.string, sep = "")' >> $GITHUB_ENV
+          Rscript -e 'cat("OS_VERSION=", sessionInfo()$running, "\n", sep = "")' >> $GITHUB_ENV
+          Rscript -e 'cat("R_VERSION=", R.Version()$version.string, "\n", sep = "")' >> $GITHUB_ENV
           echo 'WORKFLOW=${{ github.workflow }}' >> $GITHUB_ENV
           echo 'TMPDIR=${{ runner.temp }}' >> $GITHUB_ENV
       - uses: actions/checkout@v3
