@@ -27,7 +27,7 @@ jobs:
           echo 'WORKFLOW=${{ github.workflow }}' >> $GITHUB_ENV
           echo 'TMPDIR=${{ runner.temp }}' >> $GITHUB_ENV
       - name: Restore GHA Cache
-        uses: ktmud/cached-dependencies@064315d
+        uses: ktmud/cached-dependencies@064315d61e424e60d440fa77e8afda19cdd7211a
         with:
           parallel: true
           run: |
