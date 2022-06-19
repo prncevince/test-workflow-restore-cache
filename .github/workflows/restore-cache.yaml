@@ -29,16 +29,16 @@ jobs:
       - name: Restore renv cache
         uses: prncevince/actions-cache@prncevince/reeval
         with:
-          restore-only: true
+          only-restore: true
           path: ${{ runner.temp }}/renv
-          key: ''
+          key: '-'
           restore-keys: __prncevince_r-actions-${{ github.workflow }}-${{ steps.restore-partials.outputs.os-version }}-${{ steps.restore-partials.outputs.r-version }}-
       - name: Restore knitr cache
         uses: prncevince/actions-cache@prncevince/reeval
         with:
-          restore-only: true
+          only-restore: true
           path: knitr-cache_cache
-          key: ''
+          key: '-'
           restore-keys: __prncevince_r-actions_2-${{ github.workflow }}-${{ steps.restore-partials.outputs.os-version }}-${{ steps.restore-partials.outputs.r-version }}-
   rmarkdown:
     if: github.event.schedule == ''
