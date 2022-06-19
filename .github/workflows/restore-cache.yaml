@@ -1,7 +1,7 @@
 name: restore-cache-template
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 4 * * 0'
   push:
     branches: [main]
     paths-ignore: ['**.md']
@@ -27,14 +27,14 @@ jobs:
           Rscript -e 'cat("##[set-output name=r-version;]", R.Version()$version.string, sep = "")'
       - uses: actions/checkout@v3
       - name: Restore renv cache
-        uses: prncevince/actions-cache@prncevince/reeval
+        uses: prncevince/actions-cache@1.0.0
         with:
           only-restore: true
           path: ${{ runner.temp }}/renv
           key: '-'
           restore-keys: __prncevince_r-actions-${{ github.workflow }}-${{ steps.restore-partials.outputs.os-version }}-${{ steps.restore-partials.outputs.r-version }}-
       - name: Restore knitr cache
-        uses: prncevince/actions-cache@prncevince/reeval
+        uses: prncevince/actions-cache@1.0.0
         with:
           only-restore: true
           path: knitr-cache_cache
