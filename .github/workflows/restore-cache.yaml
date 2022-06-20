@@ -70,7 +70,6 @@ jobs:
       - uses: prncevince/r-actions/setup-knitr-cache@v1.3.0
         with:
           cache: 'knitr-cache_cache'
-          cache-hash: 'knitr-cache.Rmd'
       - name: Build site
         run: Rscript build.R
       - name: Deploy to GitHub pages 🚀
